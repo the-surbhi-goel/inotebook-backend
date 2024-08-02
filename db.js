@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const mongoURI = "mongodb://localhost:27017/?tls=false&readPreference=primary&directConnection=true";
-// const mongoURI = "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false";
+const mongoURI = "mongodb://localhost:27017/inotebook?tls=false&readPreference=primary&directConnection=true";
 
 const connectToMongo = async () => {
     console.log("1connected to Mongo Sucessfully");
