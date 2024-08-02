@@ -63,4 +63,47 @@ router.post(
   }
 );
 
+// Login - It doesn't require authentication
+router.post(
+  "/login",
+  [
+    body("email", "Enter Valid email-id").isEmail(),
+    body("password", "Enter valid password").exists(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      //Check email-id
+      let user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(400).json({ error: "Invalid Credentials" });
+      }
+
+      //Check password
+      const passwordCheck = await bcrypt.compare(req.body.password, user.password);
+      if (!passwordCheck) {
+        return res.status(400).json({ error: "Invalid Credentials" });
+      }
+
+      const data = {
+        user: { id: user.id },
+      };
+      const token = jwt.sign(data, JWT_SECRET);
+
+      res.send({
+        status: "OK",
+        token: token,
+        msg: "User signIn successfully",
+      });
+    } catch (error) {
+      console.error("error ", error);
+      return res.status(500).json("Internal server error");
+    }
+  }
+);
+
 module.exports = router;
