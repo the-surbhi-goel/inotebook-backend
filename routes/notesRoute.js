@@ -101,4 +101,36 @@ router.put(
   }
 );
 
+// delete-note - Update Existing Note
+// - /api/note/delete-note
+router.delete("/delete-note/:id", fetchUserDetails, async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  try {
+    const note = await Notes.findById(req.params.id);
+    // If note doesn't exist
+    if (!note) {
+      return res.status(404).json({ error: "Not Found" });
+    }
+
+    // If author doesn't match
+    if (note.user.toString() !== req.user.id) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    await Notes.findByIdAndDelete(req.params.id);
+
+    res.send({
+      status: "OK",
+      msg: "Note deleted successfully",
+    });
+  } catch (error) {
+    console.error("error ", error);
+    return res.status(500).json("Internal server error");
+  }
+});
+
 module.exports = router;
