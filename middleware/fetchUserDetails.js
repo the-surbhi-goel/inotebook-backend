@@ -6,7 +6,6 @@ const fetchUserDetails = (req, res, next) => {
   try {
     //get user-details
     const token = req.header("auth-token");
-    console.log("token ", token);
     if (!token) {
       return res.status(401).json({ error: "Unauthorized" });
     }
