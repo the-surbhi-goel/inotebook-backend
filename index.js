@@ -13,6 +13,7 @@ app.get('/', (req, res) => {
 })
 
 app.use("/api/auth", require('./routes/auth'))
+app.use("/api/user", require('./routes/user'))
 app.use("/api/notes", require('./routes/notes'))
 
 app.listen(port, () => {
