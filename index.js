@@ -12,9 +12,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.use("/api/auth", require('./routes/auth'))
-app.use("/api/user", require('./routes/user'))
-app.use("/api/notes", require('./routes/notes'))
+app.use("/api/auth", require('./routes/authRoute'))
+app.use("/api/user", require('./routes/userRoute'))
+app.use("/api/notes", require('./routes/notesRoute'))
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

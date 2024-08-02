@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
-const Notes = require("../models/Notes");
+const Notes = require("../models/NotesModel");
 const fetchUserDetails = require("../middleware/fetchUserDetails");
 
 // get-notes-list- Get All notes
