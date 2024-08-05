@@ -39,8 +39,10 @@ router.post(
         user: req.user.id,
       })
         .then((noteRes) => {
+          console.log("noteRes ", noteRes);
           res.send({
             status: "OK",
+            note: noteRes,
             msg: "Note created successfully",
           });
         })
