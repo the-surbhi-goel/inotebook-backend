@@ -90,10 +90,15 @@ router.put(
       };
 
       //{new: true}: It there is new content, It'll create new entry
-      await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
+      const updatedNote = await Notes.findByIdAndUpdate(
+        req.params.id,
+        { $set: newNote },
+        { new: true }
+      );
 
       res.send({
         status: "OK",
+        note: updatedNote,
         msg: "Note updated successfully",
       });
     } catch (error) {
